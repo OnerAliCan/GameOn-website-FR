@@ -79,4 +79,10 @@ function verifyForm() {
     alert('format de mail incorrect');
     return false;
   }
+
 }
+
+  function validate() {
+    // document.forms["reserve"].reset();
+    return false;
+  }
