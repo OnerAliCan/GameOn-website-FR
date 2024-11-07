@@ -79,3 +79,4 @@ function verifyForm() {
     alert('format de mail incorrect');
     return false;
   }
+}
