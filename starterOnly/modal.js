@@ -48,12 +48,16 @@ formSubmit.addEventListener("click", verifyForm);
 
 function verifyForm() {
 
+  // prénom
+
   if(firstName.value.length <= 2) {
     alert("Le prénom doit faire plus de 2 caractères");
   }
   else {
     console.log("prenom ok");
   }
+
+  //nom de famille 
 
   if(lastName.value.length <= 2) {
     alert("Le nom de famille doit faire plus de 2 caractères");
@@ -62,17 +66,16 @@ function verifyForm() {
     console.log("nom de famille ok");
   }
 
-}
+  //Email 
 
-function validateEmail(email) {
+  const emailPattern = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+  const emailInput = document.getElementById('email').value;
 
-  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  
-  return emailPattern.test(email);
-  
+  if(emailInput.match(emailPattern)) {
+    console.log('mail ok');
+    return false;
   }
-
-  function validate() {
-    // document.forms["reserve"].reset();
+  else {
+    alert('format de mail incorrect');
     return false;
   }
