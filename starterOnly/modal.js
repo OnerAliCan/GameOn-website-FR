@@ -52,6 +52,7 @@ function verifyForm() {
 
   if(firstName.value.length <= 2) {
     alert("Le prénom doit faire plus de 2 caractères");
+    return false;
   }
   else {
     console.log("prenom ok");
@@ -61,6 +62,7 @@ function verifyForm() {
 
   if(lastName.value.length <= 2) {
     alert("Le nom de famille doit faire plus de 2 caractères");
+    return false;
   }
   else {
     console.log("nom de famille ok");
@@ -92,6 +94,28 @@ function verifyForm() {
         console.log('participations pas bon');
         return false;
     }
+
+
+  //boutons radios localisation 
+
+  var radios = document.getElementsByName('location');
+  let isChecked = false;
+
+    for (var i = 0; i < radios.length; i++) {
+        if (radios[i].checked) {
+            isChecked = true;
+            console.log("Le bouton radio sélectionné est :", radios[i].value);
+            break;
+        }
+
+        if (!isChecked) {
+            console.log("Aucun bouton radio n'est sélectionné.");
+            
+            return false;
+        }
+    }
+
+
 
 }
 

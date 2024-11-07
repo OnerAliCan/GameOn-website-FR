@@ -1,5 +1,5 @@
 const formSubmit = document.querySelector('.btn-submit');
-formSubmit.addEventListener("click", isNumber);
+formSubmit.addEventListener("click", radioIsChecked);
 
 // function isNumber(value) {
 //     return typeof value === 'number';
@@ -7,26 +7,45 @@ formSubmit.addEventListener("click", isNumber);
 
 
 
-function isNumber() {
-    const quantityInput = document.getElementById('quantity').value;
-    console.log(quantityInput);
+function radioIsChecked() {
+    var radios = document.getElementsByName('location');
+    let isChecked = false;
 
-    if(!isNaN(quantityInput) && quantityInput != '' ){
-        console.log('ok');
+    for (var i = 0; i < radios.length; i++) {
+        if (radios[i].checked) {
+            isChecked = true;
+            console.log("Le bouton radio sélectionné est :", radios[i].value);
+            break;
+        }
+
+        if (!isChecked) {
+            console.log("Aucun bouton radio n'est sélectionné.");
+            
+            return false;
+        }
     }
-    else {
-        console.log('pas bon');
-        return false;
-    }
-    
-    // console.log(!isNaN(quantity)); // Vérifie si c’est bien un nombre
-    }
+}
 
  
 
-// console.log(isNumber(42)); // true
-// console.log(isNumber('number')); // false
-// console.log(isNumber(true)); // false
+
+// let output = document.getElementById("output");
+//                       function checkRadio(){
+//                          // accessing the radio buttons
+//                          let radio1 = document.getElementById('radio1');
+//                          let radio2 = document.getElementById('radio2');
+//                          let radio3 = document.getElementById('radio3');
+//                          // checking if any radio button is selected
+//                          if(radio1.checked){
+//                             output.innerHTML = "The radio button with value " + radio1.value + " is checked!";
+//                          }
+//                          if(radio2.checked){
+//                             output.innerHTML = "The radio button with value " + radio2.value + " is checked!";
+//                          }
+//                          if(radio3.checked){
+//                             output.innerHTML = "The radio button with value " + radio3.value + " is checked!";
+//                          }
+//                       }
 
 
 function validate() {
