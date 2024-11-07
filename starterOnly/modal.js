@@ -73,12 +73,25 @@ function verifyForm() {
 
   if(emailInput.match(emailPattern)) {
     console.log('mail ok');
-    return false;
   }
   else {
     alert('format de mail incorrect');
     return false;
   }
+
+
+  //nombre de participations
+
+  const quantityInput = document.getElementById('quantity').value;
+    console.log(quantityInput);
+
+    if(!isNaN(quantityInput) && quantityInput != '' ){
+        console.log('participations ok');
+    }
+    else {
+        console.log('participations pas bon');
+        return false;
+    }
 
 }
 
