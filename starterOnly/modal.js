@@ -57,7 +57,7 @@ function verifyFirstName() {
         //     "Veuillez entrer 2 caractères ou plus pour le champ du prénom.";
         formData[0].setAttribute(
             "data-error",
-            "Vous devez entrer 2 caractères ou plus."
+            "Le prénom doit comporter au moins 2 caractères."
         );
         formData[0].setAttribute("data-error-visible", "true");
         console.log(formData[0]);
@@ -74,12 +74,17 @@ function verifyFirstName() {
 function verifyLastName() {
     if (document.getElementById("last").value.length <= 2) {
         console.log("nom pas bon");
-        // document.getElementById("lastname_message").innerHTML =
-        // "Veuillez entrer 2 caractères ou plus pour le champ du nom.";
-        // alert("Le nom de famille doit faire plus de 2 caractères");
+        formData[1].setAttribute(
+            "data-error",
+            "Le nom doit comporter au moins 2 caractères."
+        );
+        formData[1].setAttribute("data-error-visible", "true");
+        console.log(formData[1]);
         return false;
     } else {
         console.log("nom de famille ok");
+        formData[1].removeAttribute("data-error");
+        formData[1].setAttribute("data-error-visible", "false");
     }
 }
 
@@ -94,11 +99,16 @@ function verifyEmail() {
             )
     ) {
         console.log("mail ok");
+        formData[2].removeAttribute("data-error");
+        formData[2].setAttribute("data-error-visible", "false");
     } else {
         console.log("mail pas bon");
-        // document.getElementById("email_message").innerHTML =
-        //     "Veuillez respecter le format email";
-        // alert('format de mail incorrect');
+        formData[2].setAttribute(
+            "data-error",
+            "Le format de l'adresse e-mail est incorrect."
+        );
+        formData[2].setAttribute("data-error-visible", "true");
+        console.log(formData[2]);
         return false;
     }
 }
@@ -108,10 +118,16 @@ function verifyBirthdate() {
 
     if (document.getElementById("birthdate").value) {
         console.log("birthdate ok");
+        formData[3].removeAttribute("data-error");
+        formData[3].setAttribute("data-error-visible", "false");
     } else {
         console.log("birthdate pas bon");
-        // document.getElementById("birthdate_message").innerHTML =
-        //     "Vous devez entrer votre date de naissance.";
+        formData[3].setAttribute(
+            "data-error",
+            "La date de naissance ne peut pas être vide."
+        );
+        formData[3].setAttribute("data-error-visible", "true");
+        console.log(formData[3]);
         return false;
     }
 }
@@ -123,11 +139,16 @@ function verifyQuantity() {
 
     if (!isNaN(quantityInput) && quantityInput != "") {
         console.log("nbr participations ok");
+        formData[4].removeAttribute("data-error");
+        formData[4].setAttribute("data-error-visible", "false");
     } else {
         console.log("nbr participations pas bon");
-        // document.getElementById("quantity_message").innerHTML =
-        //     "Veuillez renseigner votre nombre de participations";
-        // alert('partipication pas bon');
+        formData[4].setAttribute(
+            "data-error",
+            "Veuillez entrer un nombre valide de participations."
+        );
+        formData[4].setAttribute("data-error-visible", "true");
+        console.log(formData[4]);
         return false;
     }
 }
@@ -142,13 +163,19 @@ function verifyLocation() {
         if (radios[i].checked) {
             isChecked = true;
             console.log("Le bouton radio sélectionné est :", radios[i].value);
+            formData[5].removeAttribute("data-error");
+            formData[5].setAttribute("data-error-visible", "false");
             break;
         }
     }
     if (!isChecked) {
         console.log("Aucun bouton radio n'est sélectionné.");
-        // document.getElementById("location_message").innerHTML =
-        //     "Vous devez choisir une option.";
+        formData[5].setAttribute(
+            "data-error",
+            "Veuillez sélectionner une option."
+        );
+        formData[5].setAttribute("data-error-visible", "true");
+        console.log(formData[5]);
         return false;
     }
 }
@@ -158,11 +185,16 @@ function verifyCheckbox() {
 
     if (document.getElementById("checkbox1").checked) {
         console.log("Conditions acceptées ok");
+        formData[6].removeAttribute("data-error");
+        formData[6].setAttribute("data-error-visible", "false");
     } else {
         console.log("conditions non acceptées");
-        // document.getElementById("checkbox_message").innerHTML =
-        //     "Vous devez vérifier que vous acceptez les termes et conditions.";
-        // alert('Conditions non acceptées');
+        formData[6].setAttribute(
+            "data-error",
+            "Veuillez accepter les conditions générales avant de soumettre le formulaire."
+        );
+        formData[6].setAttribute("data-error-visible", "true");
+        console.log(formData[6]);
         return false;
     }
 }
