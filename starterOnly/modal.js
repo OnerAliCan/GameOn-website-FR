@@ -2,7 +2,16 @@ window.onload = function () {
     // launch modal event
     modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
-    document.querySelector(".close").addEventListener("click", closeModal);
+    document
+        .querySelectorAll(".close")[0]
+        .addEventListener("click", closeModal);
+    document
+        .querySelectorAll(".close")[1]
+        .addEventListener("click", closeModal);
+
+    document
+        .getElementsByClassName("close-button")[0]
+        .addEventListener("click", closeModal);
 };
 
 function editNav() {
@@ -15,9 +24,10 @@ function editNav() {
 }
 
 // DOM Elements
-const modalbg = document.querySelector(".bground");
+const modalbg = document.getElementById("form-modal");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
+const modalInscriptionValidate = document.getElementById("validation-modal");
 
 // launch modal form
 function launchModal() {
@@ -28,23 +38,30 @@ function launchModal() {
 
 function closeModal() {
     modalbg.style.display = "none";
+    modalInscriptionValidate.style.display = "none";
 }
 
 // verifier le formulaire
 
-const formSubmit = document.querySelector(".btn-submit");
-
-formSubmit.addEventListener("click", verifyForm);
-
 // pour lancer la fonction qui lance toutes les autres fonctions
-function verifyForm() {
-    verifyFirstName();
-    verifyLastName();
-    verifyEmail();
-    verifyBirthdate();
-    verifyQuantity();
-    verifyLocation();
-    verifyCheckbox();
+
+function validate() {
+    var formValid = true;
+
+    formValid &&= verifyFirstName();
+    formValid &&= verifyLastName();
+    formValid &&= verifyEmail();
+    formValid &&= verifyBirthdate();
+    formValid &&= verifyQuantity();
+    formValid &&= verifyLocation();
+    formValid &&= verifyCheckbox();
+
+    if (formValid) {
+        document.forms["reserve"].reset();
+        modalbg.style.display = "none";
+        modalInscriptionValidate.style.display = "block";
+    }
+    return false;
 }
 
 // prénom
@@ -52,9 +69,6 @@ function verifyForm() {
 function verifyFirstName() {
     if (document.getElementById("first").value.length <= 2) {
         console.log("prénom pas bon");
-
-        // document.getElementById("firstname_message").innerHTML =
-        //     "Veuillez entrer 2 caractères ou plus pour le champ du prénom.";
         formData[0].setAttribute(
             "data-error",
             "Le prénom doit comporter au moins 2 caractères."
@@ -66,6 +80,7 @@ function verifyFirstName() {
         console.log("prenom ok");
         formData[0].removeAttribute("data-error");
         formData[0].setAttribute("data-error-visible", "false");
+        return true;
     }
 }
 
@@ -85,6 +100,7 @@ function verifyLastName() {
         console.log("nom de famille ok");
         formData[1].removeAttribute("data-error");
         formData[1].setAttribute("data-error-visible", "false");
+        return true;
     }
 }
 
@@ -101,6 +117,7 @@ function verifyEmail() {
         console.log("mail ok");
         formData[2].removeAttribute("data-error");
         formData[2].setAttribute("data-error-visible", "false");
+        return true;
     } else {
         console.log("mail pas bon");
         formData[2].setAttribute(
@@ -120,6 +137,7 @@ function verifyBirthdate() {
         console.log("birthdate ok");
         formData[3].removeAttribute("data-error");
         formData[3].setAttribute("data-error-visible", "false");
+        return true;
     } else {
         console.log("birthdate pas bon");
         formData[3].setAttribute(
@@ -141,6 +159,7 @@ function verifyQuantity() {
         console.log("nbr participations ok");
         formData[4].removeAttribute("data-error");
         formData[4].setAttribute("data-error-visible", "false");
+        return true;
     } else {
         console.log("nbr participations pas bon");
         formData[4].setAttribute(
@@ -178,6 +197,7 @@ function verifyLocation() {
         console.log(formData[5]);
         return false;
     }
+    return true;
 }
 
 function verifyCheckbox() {
@@ -187,6 +207,7 @@ function verifyCheckbox() {
         console.log("Conditions acceptées ok");
         formData[6].removeAttribute("data-error");
         formData[6].setAttribute("data-error-visible", "false");
+        return true;
     } else {
         console.log("conditions non acceptées");
         formData[6].setAttribute(
@@ -197,9 +218,4 @@ function verifyCheckbox() {
         console.log(formData[6]);
         return false;
     }
-}
-
-function validate() {
-    // document.forms["reserve"].reset();
-    return false;
 }
