@@ -12,6 +12,8 @@ window.onload = function () {
 	document
 		.getElementsByClassName("close-button")[0]
 		.addEventListener("click", closeModal);
+
+	clearModal();
 };
 
 function editNav() {
@@ -34,11 +36,34 @@ function launchModal() {
 	modalbg.style.display = "block";
 }
 
-//fermer la modale en cliquant sur la croix
+//fermer la modale en cliquant sur la croix et le vider à chaque
 
 function closeModal() {
 	modalbg.style.display = "none";
 	modalInscriptionValidate.style.display = "none";
+	clearModal();
+}
+
+// nettoyer la modale
+
+function clearModal() {
+	// nettoyer les 5 champs input
+	for (let i = 0; i < 5; i++) {
+		const data = formData[i];
+		const input = data.querySelector("input");
+		if (input) {
+			input.value = "";
+		}
+	}
+
+	var radios = document.getElementsByName("location");
+	radios.forEach((radio) => {
+		radio.checked = false;
+	});
+
+	formData.forEach((data) => {
+		data.setAttribute("data-error-visible", "false");
+	});
 }
 
 // verifier le formulaire
@@ -81,7 +106,7 @@ function validate() {
 // prénom
 
 function verifyFirstName() {
-	if (document.getElementById("first").value.length <= 2) {
+	if (document.getElementById("first").value.length <= 1) {
 		console.log("prénom pas bon");
 		formData[0].setAttribute(
 			"data-error",
@@ -101,7 +126,7 @@ function verifyFirstName() {
 //nom de famille
 
 function verifyLastName() {
-	if (document.getElementById("last").value.length <= 2) {
+	if (document.getElementById("last").value.length <= 1) {
 		console.log("nom pas bon");
 		formData[1].setAttribute(
 			"data-error",
@@ -142,14 +167,40 @@ function verifyEmail() {
 		return false;
 	}
 }
+
 // date de naissance
 
 function verifyBirthdate() {
+	// calcul âge
+	const input = document.getElementById("birthdate");
+	const birthDate = new Date(input.value);
+	const today = new Date();
+
+	let age = today.getFullYear() - birthDate.getFullYear();
+	const m = today.getMonth() - birthDate.getMonth();
+
+	// Si l'anniversaire n'est pas encore passé cette année
+	if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+		age--;
+	}
+
 	if (document.getElementById("birthdate").value) {
-		console.log("birthdate ok");
-		formData[3].removeAttribute("data-error");
-		formData[3].setAttribute("data-error-visible", "false");
-		return true;
+		if (age > 17) {
+			console.log("birthdate ok");
+			console.log(document.getElementById("birthdate").value);
+			formData[3].removeAttribute("data-error");
+			formData[3].setAttribute("data-error-visible", "false");
+			return true;
+		} else {
+			console.log("birthdate pas bon");
+			formData[3].setAttribute(
+				"data-error",
+				"Vous devez avoir minimum 18 ans pour participer"
+			);
+			formData[3].setAttribute("data-error-visible", "true");
+			console.log(formData[3]);
+			return false;
+		}
 	} else {
 		console.log("birthdate pas bon");
 		formData[3].setAttribute(
